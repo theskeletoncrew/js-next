@@ -3,29 +3,29 @@ import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import nodePolyfills from 'rollup-plugin-node-polyfills';
-import pkg from './package.json';
 import ttypescript from 'ttypescript';
 
 const builds = [
   {
-    file: pkg.module,
+    dir: 'dist/esm',
     format: 'es',
     checkTypescript: true,
   },
   {
-    file: pkg.main,
+    dir: 'dist/cjs',
     format: 'cjs',
   },
   {
-    file: pkg.unpkg,
+    file: 'dist/iife/index.js',
     format: 'iife',
     browser: true,
+    preserveModules: false,
     plugins: [
       nodePolyfills({ crypto: true }),
     ],
   },
   {
-    file: pkg.browser,
+    dir: 'dist/esm-browser',
     format: 'es',
     browser: true,
     plugins: [
@@ -37,7 +37,8 @@ const builds = [
 const createConfig = (build) => {
   const {
     file,
-    format,
+    dir,
+    preserveModules = true,
     sourcemap = true,
     browser = false,
     checkTypescript = false,
@@ -68,10 +69,11 @@ const createConfig = (build) => {
     output: {
       name: 'Metaplex',
       file,
-      format,
+      dir,
       sourcemap,
       globals: allGlobals,
       externalLiveBindings: false,
+      preserveModules,
     },
     external: Object.keys(allGlobals),
     plugins: [
