@@ -57,7 +57,12 @@ const createConfig = (build) => {
     "tweetnacl": "Tweetnacl",
   }
 
-  const bundleInBrowser = ["buffer"];
+  const bundleInBrowser = [
+    "@metaplex-foundation/beet",
+    "@metaplex-foundation/beet-solana",
+    "@metaplex-foundation/mpl-core",
+    "buffer",
+  ];
 
   const external = Object.keys(globals).filter(dependency => {
     return !browser || !bundleInBrowser.includes(dependency);
