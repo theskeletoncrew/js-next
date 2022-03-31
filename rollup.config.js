@@ -3,6 +3,7 @@ import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import pkg from './package.json';
+import ttypescript from 'ttypescript';
 
 const builds = [
   {
@@ -81,6 +82,7 @@ const createConfig = (build) => {
         preferBuiltins: !browser,
       }),
       typescript({
+        typescript: ttypescript,
         check: checkTypescript,
         useTsconfigDeclarationDir: checkTypescript,
         tsconfigOverride: {
