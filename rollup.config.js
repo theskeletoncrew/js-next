@@ -38,6 +38,7 @@ const createConfig = (build) => {
   const {
     file,
     dir,
+    format,
     preserveModules = true,
     sourcemap = true,
     browser = false,
@@ -70,6 +71,7 @@ const createConfig = (build) => {
       name: 'Metaplex',
       file,
       dir,
+      format,
       sourcemap,
       globals: allGlobals,
       externalLiveBindings: false,
