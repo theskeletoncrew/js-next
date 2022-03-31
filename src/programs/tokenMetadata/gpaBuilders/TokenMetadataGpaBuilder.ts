@@ -1,7 +1,6 @@
 import BN from 'bn.js';
 import { GpaBuilder } from '@/programs/shared';
 import { Key } from '../generated/types';
-import { MetadataV1GpaBuilder } from '.';
 
 export class TokenMetadataGpaBuilder extends GpaBuilder {
   whereKey(key: Key) {
@@ -9,6 +8,7 @@ export class TokenMetadataGpaBuilder extends GpaBuilder {
   }
 
   metadataV1Accounts() {
+    const MetadataV1GpaBuilder = require('./MetadataV1GpaBuilder');
     return MetadataV1GpaBuilder.from(this).whereKey(Key.MetadataV1);
   }
 

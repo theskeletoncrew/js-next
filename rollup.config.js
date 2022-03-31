@@ -20,17 +20,11 @@ const builds = [
     format: 'iife',
     browser: true,
     preserveModules: false,
-    plugins: [
-      nodePolyfills({ crypto: true }),
-    ],
   },
   {
     dir: 'dist/esm-browser',
     format: 'es',
     browser: true,
-    plugins: [
-      nodePolyfills({ crypto: true }),
-    ],
   },
 ]
 
@@ -44,10 +38,9 @@ const createConfig = (build) => {
     browser = false,
     checkTypescript = false,
     plugins = [],
-    globals = {},
   } = build;
 
-  const allGlobals = {
+  const globals = {
     "@aws-sdk/client-s3": "AwsS3Client",
     "@bundlr-network/client": "BundlrNetworkClient",
     "@metaplex-foundation/beet": "MetaplexBeet",
@@ -62,8 +55,13 @@ const createConfig = (build) => {
     "mime": "Mime",
     "nft.storage": "NftStorageClient",
     "tweetnacl": "Tweetnacl",
-    ...globals,
   }
+
+  const bundleInBrowser = ["buffer"];
+
+  const external = Object.keys(globals).filter(dependency => {
+    return !browser || !bundleInBrowser.includes(dependency);
+  });
 
   return {
     input: 'src/index.ts',
@@ -73,11 +71,11 @@ const createConfig = (build) => {
       dir,
       format,
       sourcemap,
-      globals: allGlobals,
+      globals,
       externalLiveBindings: false,
       preserveModules,
     },
-    external: Object.keys(allGlobals),
+    external,
     plugins: [
       resolve({
         browser,
@@ -105,6 +103,7 @@ const createConfig = (build) => {
           'process.env.BROWSER': JSON.stringify(browser),
         },
       }),
+      ...(browser ? [nodePolyfills({ crypto: true })] : []),
       ...plugins,
     ],
     onwarn: function (warning, rollupWarn) {
