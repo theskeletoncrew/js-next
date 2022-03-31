@@ -17,8 +17,6 @@ const builds = [
 ]
 
 const createConfig = (build) => {
-  console.log(build);
-
   const {
     file,
     format,
@@ -100,7 +98,4 @@ const createConfig = (build) => {
   }
 }
 
-const configs = builds.map(build => createConfig(build));
-console.log(configs);
-
-export default configs;
+export default builds.map(build => createConfig(build));
