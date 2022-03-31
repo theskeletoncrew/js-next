@@ -14,6 +14,16 @@ const builds = [
     file: pkg.main,
     format: 'cjs',
   },
+  {
+    file: pkg.unpkg,
+    format: 'iife',
+    browser: true,
+  },
+  {
+    file: pkg.browser,
+    format: 'es',
+    browser: true,
+  },
 ]
 
 const createConfig = (build) => {
@@ -48,6 +58,7 @@ const createConfig = (build) => {
   return {
     input: 'src/index.ts',
     output: {
+      name: 'Metaplex',
       file,
       format,
       sourcemap,
