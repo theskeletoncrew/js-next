@@ -3,9 +3,9 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es2019",
+    "target": "esnext",
     "module": "esnext",
-    "outDir": "dist/esm",
+    "outDir": "dist",
     "declarationDir": "dist/types",
     "noEmit": false,
     "declaration": true,
@@ -17,12 +17,6 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "plugins": [
-      {
-        "transform": "@ovos-media/ts-transform-paths",
-        "exclude": ["*"]
-      }
-    ],
     "paths": {
       "@/*": ["src/*"]
     }
