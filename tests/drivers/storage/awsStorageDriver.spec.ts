@@ -1,8 +1,9 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { awsStorage } from '@/drivers/storage/awsStorageDriver';
 import { MetaplexFile } from '@/drivers/filesystem';
-import { metaplex } from '../../helpers';
+import { metaplex, teardownMetaplex } from '../../helpers';
 import Sinon from 'sinon';
+import { Metaplex } from '@/Metaplex';
 
 const awsClient = {
   async send() {
@@ -16,12 +17,16 @@ const awsClient = {
 } as unknown as S3Client;
 
 describe('AwsStorageDriver', () => {
+  let mx: Metaplex;
+
+  beforeEach(async () => mx = await metaplex());
+  afterEach(() => teardownMetaplex(mx));
+
   it('it can upload assets to a S3 bucket', async () => {
     // Given a mock awsClient.
     const stub = Sinon.spy(awsClient);
   
     // Fed to a Metaplex instance.
-    const mx = await metaplex();
     mx.use(awsStorage(awsClient, 'some-bucket'));
   
     // When we upload some content to AWS S3.

@@ -11,3 +11,7 @@ export const metaplex = async (solsToAirdrop: number = 100) => {
 	await airdrop(mx.connection, wallet.publicKey, solsToAirdrop);
 	return mx;
 }
+
+export const teardownMetaplex = (mx: Metaplex) => {
+	(mx.connection as any)._rpcWebSocket.close();
+};
