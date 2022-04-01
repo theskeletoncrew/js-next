@@ -2,12 +2,12 @@ module.exports = {
   testEnvironment: 'jsdom',
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  coverageReporters: ['html', 'lcov', 'text'],
+  coverageReporters: ['html', 'lcov'],
   collectCoverageFrom: [
     'src/**/*.ts',
   ],
   testMatch: [
-    '<rootDir>/test/**/*.test.ts',
+    '<rootDir>/tests/**/*.test.ts',
   ],
   transform: {
     '^.+\\.tsx?$': '@sucrase/jest-plugin',

@@ -36,7 +36,7 @@
     "build": "yarn clean && ttsc -p tsconfig.json && ttsc -p tsconfig.cjs.json",
     "amman:start": "DEBUG='amman*' amman validator",
     "amman:stop": "pkill solana-test-validator",
-    "test": "jest --coverage",
+    "test": "jest",
     "lint": "prettier -c ./src/",
     "lint:fix": "prettier --write ./src"
   },
