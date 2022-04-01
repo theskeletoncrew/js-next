@@ -16,4 +16,5 @@ module.exports = {
     '^@/(.*?)$': '<rootDir>/src/$1',
   },
   rootDir: __dirname,
+  setupFilesAfterEnv: ["./tests/helpers/setupJest.ts"],
 }
