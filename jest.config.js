@@ -7,7 +7,7 @@ module.exports = {
     'src/**/*.ts',
   ],
   testMatch: [
-    '<rootDir>/tests/**/*.test.ts',
+    '<rootDir>/tests/**/*.spec.ts',
   ],
   transform: {
     '^.+\\.tsx?$': '@sucrase/jest-plugin',
