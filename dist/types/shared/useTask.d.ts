@@ -1,0 +1,46 @@
+import { AbortSignal } from 'abort-controller';
+import { DisposableScope } from './useDisposable';
+export declare type TaskStatus = 'pending' | 'running' | 'successful' | 'failed' | 'canceled';
+export declare type TaskCallback<T> = (scope: DisposableScope) => T | Promise<T>;
+export declare type TaskOptions = {
+    signal?: AbortSignal;
+    force?: boolean;
+};
+export declare type Task<T> = {
+    getStatus: () => TaskStatus;
+    getResult: () => T | undefined;
+    getError: () => unknown;
+    isPending: () => boolean;
+    isRunning: () => boolean;
+    isCompleted: () => boolean;
+    isSuccessful: () => boolean;
+    isFailed: () => boolean;
+    isCanceled: () => boolean;
+    run: (options?: TaskOptions) => Promise<T>;
+    loadWith: (preloadedResult: T) => Task<T>;
+    reset: () => Task<T>;
+    onStatusChange: (callback: (status: TaskStatus) => unknown) => Task<T>;
+    onStatusChangeTo: (status: TaskStatus, callback: () => unknown) => Task<T>;
+    onSuccess: (callback: () => unknown) => Task<T>;
+    onFailure: (callback: () => unknown) => Task<T>;
+    onCancel: (callback: () => unknown) => Task<T>;
+};
+export declare const useTask: <T>(callback: TaskCallback<T>) => {
+    getStatus: () => TaskStatus;
+    getResult: () => T | undefined;
+    getError: () => unknown;
+    isPending: () => boolean;
+    isRunning: () => boolean;
+    isCompleted: () => boolean;
+    isSuccessful: () => boolean;
+    isFailed: () => boolean;
+    isCanceled: () => boolean;
+    run: (options?: TaskOptions) => Promise<T>;
+    loadWith(preloadedResult: T): any;
+    reset(): any;
+    onStatusChange(callback: (status: TaskStatus) => unknown): any;
+    onStatusChangeTo(status: TaskStatus, callback: () => unknown): any;
+    onSuccess(callback: () => unknown): any;
+    onFailure(callback: () => unknown): any;
+    onCancel(callback: () => unknown): any;
+};
