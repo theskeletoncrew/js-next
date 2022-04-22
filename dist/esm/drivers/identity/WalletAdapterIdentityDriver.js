@@ -43,5 +43,11 @@ export class WalletAdapterIdentityDriver extends IdentityDriver {
         }
         return this.walletAdapter.signAllTransactions(transactions);
     }
+    async sendTransaction(transaction, connection, options) {
+        if (this.walletAdapter.sendTransaction === undefined) {
+            throw new OperationNotSupportedByWalletAdapterError('sendTransaction');
+        }
+        return this.walletAdapter.sendTransaction(transaction, connection, options);
+    }
 }
 //# sourceMappingURL=WalletAdapterIdentityDriver.js.map

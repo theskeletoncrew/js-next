@@ -63,6 +63,14 @@ class WalletAdapterIdentityDriver extends IdentityDriver_1.IdentityDriver {
             return this.walletAdapter.signAllTransactions(transactions);
         });
     }
+    sendTransaction(transaction, connection, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.walletAdapter.sendTransaction === undefined) {
+                throw new errors_1.OperationNotSupportedByWalletAdapterError('sendTransaction');
+            }
+            return this.walletAdapter.sendTransaction(transaction, connection, options);
+        });
+    }
 }
 exports.WalletAdapterIdentityDriver = WalletAdapterIdentityDriver;
 //# sourceMappingURL=WalletAdapterIdentityDriver.js.map
